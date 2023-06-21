@@ -14,3 +14,13 @@ select *
 from crime_scene_table
 where crime_type = 'Murder'
       and city = 'SQL City'; 
+
+...
+
+....
+
+to check for answers
+
+INSERT INTO solution VALUES (1, "Insert the name of the person you found here");
+
+SELECT value FROM solution;
