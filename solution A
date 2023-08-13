@@ -15,10 +15,17 @@ A step-by-step approach to solving the SQL murder mystery.
 We start by retrieving the corresponding crime scene report from the police department’s database.
 
 ```
-select * 
+ 
+ select * 
    from crime_scene_report
-
+   where crime_type = 'murder'
+   and
+   city = 'SQL City'
+   and 
+   date = 20180115
 ```
+
+This is the output of the query:
 
 
 
