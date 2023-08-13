@@ -27,16 +27,60 @@ We start by retrieving the corresponding crime scene report from the police depa
 
 This is the output of the query:
 
+Security footage shows that there were 2 witnesses.
+The first witness lives at the last house on "Northwestern Dr". 
+The second witness, named Annabel, lives somewhere on "Franklin Ave".
 
 
--- So we start by looking at the crime scene report table
+Next, we would use the hints from the statements above to get the bigger picture.
 
-select *
-from crime_scene_table
-where crime_type = 'Murder'
-      and city = 'SQL City'; 
+-- Investigating who the first witness is. 
 
-...
+```
+
+select * from person
+     where address_street_name = 'Northwestern Dr'
+	 order by address_number desc
+	 limit 1
+
+```
+
+
+Witness 1 is: 14887 Morty Schapiro with person ID 14887
+
+
+Investigate witness number 2:
+
+```
+select * 
+    from person
+	where name like '%Annabel%'
+	and address_street_name = 'Franklin Ave'
+
+
+```
+The second witness is: Annabel Miller person ID 16371 
+
+Having known the identity of these witnesses, we can proceed to the transcripts (Interview) table to see what they had said at the police station.
+
+Here are the transcripts:
+Morty Schapiro: I heard a gunshot and then saw a man run out. He had a *"Get Fit Now Gym"* bag. <br>
+                The membership number on the bag started with "48Z". Only gold members have those bags. <br>
+                 The man got into a car with a plate that included "H42W".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ....
 
