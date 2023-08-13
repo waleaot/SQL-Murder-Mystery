@@ -14,7 +14,11 @@ A step-by-step approach to solving the SQL murder mystery.
 
 We start by retrieving the corresponding crime scene report from the police department’s database.
 
+```
+select * 
+   from crime_scene_report
 
+```
 
 
 
