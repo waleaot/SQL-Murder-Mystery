@@ -8,7 +8,17 @@ Start by retrieving the corresponding crime scene report from the police departm
 
 */
 
--- so we start by looking at the crime scene report table
+------------------------------------------------------------------------
+
+A step-by-step approach to solving the SQL murder mystery. 
+
+We start by retrieving the corresponding crime scene report from the police department’s database.
+
+
+
+
+
+-- So we start by looking at the crime scene report table
 
 select *
 from crime_scene_table
