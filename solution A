@@ -1,12 +1,12 @@
-/*
-Here is the objective. 
+
+###Here is the objective. 
 
 A crime has taken place and the detective needs your help. <br>
 The detective gave you the crime scene report, but you somehow lost it. <br>
 You vaguely remember that the crime was a *murder* that occurred sometime on *Jan.15, 2018* and that it took place in *SQL City*. <br>
 Start by retrieving the corresponding crime scene report from the police department’s database.
 
-*/
+
 
 ------------------------------------------------------------------------
 
@@ -64,7 +64,7 @@ The second witness is: Annabel Miller person ID 16371
 Having known the identity of these witnesses, we can proceed to the transcripts (Interview) table to see what they had said at the police station.
 
 Here are the transcripts:
-Morty Schapiro: I heard a gunshot and then saw a man run out. He had a *"Get Fit Now Gym"* bag. <br>
+Morty Schapiro: I heard a gunshot and then saw a man run out. He had a **"Get Fit Now Gym"** bag. <br>
                 The membership number on the bag started with "48Z". Only gold members have those bags. <br>
                  The man got into a car with a plate that included "H42W".
 
