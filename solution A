@@ -3,7 +3,7 @@
 
 A crime has taken place and the detective needs your help. <br>
 The detective gave you the crime scene report, but you somehow lost it. <br>
-You vaguely remember that the crime was a *murder* that occurred sometime on *Jan.15, 2018* and that it took place in *SQL City*. <br>
+You vaguely remember that the crime was a *murder* that occurred sometime on **Jan.15, 2018** and that it took place in *SQL City*. <br>
 Start by retrieving the corresponding crime scene report from the police department’s database.
 
 
@@ -22,7 +22,7 @@ We start by retrieving the corresponding crime scene report from the police depa
    and
    city = 'SQL City'
    and 
-   date = 20180115
+   date = 20180115;
 ```
 
 This is the output of the query:
@@ -41,7 +41,7 @@ Next, we would use the hints from the statements above to get the bigger picture
 select * from person
      where address_street_name = 'Northwestern Dr'
 	 order by address_number desc
-	 limit 1
+	 limit 1;
 
 ```
 
@@ -55,13 +55,19 @@ Investigate witness number 2:
 select * 
     from person
 	where name like '%Annabel%'
-	and address_street_name = 'Franklin Ave'
+	and address_street_name = 'Franklin Ave';
 
 
 ```
 The second witness is: Annabel Miller person ID 16371 
 
 Having known the identity of these witnesses, we can proceed to the transcripts (Interview) table to see what they had said at the police station.
+
+```
+select *
+  from interview
+  where person_id in (16371,14887);
+```
 
 Here are the transcripts:
 Morty Schapiro: I heard a gunshot and then saw a man run out. He had a **"Get Fit Now Gym"** bag. <br>
@@ -70,22 +76,105 @@ Morty Schapiro: I heard a gunshot and then saw a man run out. He had a **"Get Fi
 
 
 
+Annabel Miller: I saw the murder happen, and I recognized the killer from my gym when I was working out last week on January the 9th.
 
 
+These transcripts are going to help us trace the killer. 
+
+```
+  
+ select * 
+   from get_fit_now_member
+    where id like '48Z%'
+	and membership_status = 'gold'
+
+intersect
+
+ select * 
+   from get_fit_now_member
+   where id in ( select membership_id
+			   from get_fit_now_check_in
+			   where check_in_date = 20180109);
+```
 
 
+Combining the statements of the witness in relation to the gym membership records, 
+the suspects are narrowed down to 2 persons:
+Joe Germuska with person ID 28819
+and Jeremy Bowers with person ID 67318
+
+We would now use the other information given by Morty Schapiro in relation to the guy the killer drove away in.
+
+```
+ select * from person
+ where id in (28819,67318)
+ 
+ intersect 
+ 
+ select * from person
+ where license_id in ( select id 
+ 			from drivers_license 
+ 			where plate_number like '%H42W%');
+
+```
+Jeremy Bowers with person ID 67318 is the culprit. 
 
 
-
-
-
-
-
-
-....
-
+NB: I have used sub-queries and query combinations in the last 2 queries.
+It is easy to understand if you run the queries separately and see what had gone in the background. 
 to check for answers
 
 INSERT INTO solution VALUES (1, "Insert the name of the person you found here");
 
 SELECT value FROM solution;
+
+
+<h4> Part 2 </h4>
+<h6> Congrats, you found the murderer! But wait, there's more... 
+If you think you're up for a challenge, try querying the interview transcript of the murderer to find the real villain behind this crime.
+If you feel especially confident in your SQL skills, try to complete this final step with no more than 2 queries.
+Use this same INSERT statement with your new suspect to check your answer.
+</h6>
+
+
+## We would answer this question using just 2 queries. 
+
+First, let's hear Jeremy's statement.
+
+```
+select * 
+  from interview;
+
+```
+
+He said: "I was hired by a woman with a lot of money. I don't know her name but I know she's around 5'5" (65") or 5'7" (67"). 
+She has red hair and she drives a Tesla Model S. I know that she attended the SQL Symphony Concert 3 times in December 2017."
+
+
+Let's get Jeremy's sponsor. 
+```
+select *  
+    from person
+	where license_id in ( select id 
+    					from drivers_license
+						where height between 65 and 67
+						and 
+						hair_color = 'red'
+						and 
+						car_make = 'Tesla'
+						and
+						car_model = 'Model S')
+						
+intersect 
+
+select * from person 
+where id in ( select person_id
+   from facebook_event_checkin
+   where event_name = 'SQL Symphony Concert');
+```
+There we go! 
+Miranda Priestly is the person of interest. 
+
+I hope this snippet was helpful. 
+You can let me know your thoughts <a email=waleaot@gmail.com>
+
