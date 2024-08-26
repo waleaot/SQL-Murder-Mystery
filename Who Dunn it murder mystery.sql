@@ -7,7 +7,7 @@
    and
    city = 'SQL City'
    and 
-   date = 20180115
+   date = 20180115;
    
 /*
 Security footage shows that there were 2 witnesses. 
