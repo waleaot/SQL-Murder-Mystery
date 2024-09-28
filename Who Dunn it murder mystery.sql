@@ -1,4 +1,5 @@
 
+
  
  
  select * 
@@ -17,7 +18,7 @@ The second witness, named Annabel, lives somewhere on "Franklin Ave". */
 	select * from person
 		 where address_street_name = 'Northwestern Dr'
 		 order by address_number desc
-		 limit 1
+		 limit 1;
 
 
 select * 
