@@ -1,7 +1,4 @@
 
-
- 
- 
  select * 
    from crime_scene_report
    where crime_type = 'murder'
@@ -79,7 +76,7 @@ select *
 						car_model = 'Model S')
 						
 intersect 
-
+-- need to address this subquery
 select * from person 
 where id in ( select person_id
    from facebook_event_checkin
