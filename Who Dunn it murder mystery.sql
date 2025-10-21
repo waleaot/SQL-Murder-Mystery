@@ -62,9 +62,11 @@ select *
   from interview
   where person_id = 67318;
 
+-- so nail the culprit in a single query
 
 select *  
     from person
+	-- use a subquery to filter out the parameters
 	where license_id in ( select id 
     					from drivers_license
 						where height between 65 and 67
@@ -74,11 +76,15 @@ select *
 						car_make = 'Tesla'
 						and
 						car_model = 'Model S')
-						
+-- bring a query combinator						
 intersect 
--- need to address this subquery
-select * from person 
-where id in ( select person_id
-   from facebook_event_checkin
-   where event_name = 'SQL Symphony Concert');
+select P.*
+-- a subquery to get a count of SQL Symphony events with attendance = 3 & a list of persons who have attended them
+from ( select person_id,count(event_id) as freq, event_name
+	   from facebook_event_checkin
+	   group by 1,3
+       having count(event_id) = 3  and event_name like 'SQL%' ) as B
+	-- join it with persons, to dispaly the table in terms of persons table
+left join person as P
+on B.person_id = P.id;
 					
