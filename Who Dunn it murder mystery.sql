@@ -87,4 +87,6 @@ from ( select person_id,count(event_id) as freq, event_name
 	-- join it with persons, to dispaly the table in terms of persons table
 left join person as P
 on B.person_id = P.id;
+
+-- there we have it! The person who hired Jeremy Bowers
 					
